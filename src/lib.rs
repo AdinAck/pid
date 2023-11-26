@@ -4,11 +4,6 @@ use num_traits::{
     clamp, CheckedAdd, CheckedDiv, CheckedMul, CheckedNeg, CheckedSub, Num, One, Zero,
 };
 
-pub trait PIDTerm:
-    Num + Ord + CheckedAdd + CheckedSub + CheckedMul + CheckedDiv + CheckedNeg + Copy
-{
-}
-
 pub struct PIDController<T> {
     k_p: T,
     k_i: T,
@@ -22,7 +17,7 @@ pub struct PIDController<T> {
 
 impl<T> PIDController<T>
 where
-    T: PIDTerm,
+    T: Num + Ord + CheckedAdd + CheckedSub + CheckedMul + CheckedDiv + CheckedNeg + Copy,
 {
     pub fn new(k_p: T, k_i: T, k_d: T, windup_limit: T, divisor: T) -> Self {
         Self {
